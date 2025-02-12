@@ -1,4 +1,4 @@
-package Models;
+package fr.istic.taa.jaxrs.domain;
 
 import java.util.ArrayList;
 import java.util.List;

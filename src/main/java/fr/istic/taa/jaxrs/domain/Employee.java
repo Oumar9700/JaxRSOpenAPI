@@ -1,4 +1,4 @@
-package Models;
+package fr.istic.taa.jaxrs.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
