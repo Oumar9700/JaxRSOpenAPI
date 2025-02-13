@@ -4,11 +4,12 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Artist extends User {
+public class Artist extends User implements Serializable {
 
     private List<Passage> passages = new ArrayList<Passage>();
 

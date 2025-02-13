@@ -2,12 +2,13 @@ package fr.istic.taa.jaxrs.domain;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Passage {
+public class Passage implements Serializable {
 
     private Long id;
 

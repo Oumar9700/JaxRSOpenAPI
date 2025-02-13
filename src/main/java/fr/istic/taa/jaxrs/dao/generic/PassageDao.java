@@ -1,11 +1,11 @@
 package fr.istic.taa.jaxrs.dao.generic;
 
-import fr.istic.taa.jaxrs.domain.Concert;
+import fr.istic.taa.jaxrs.domain.Passage;
 
-public class PassageDao extends AbstractJpaDao<Long, Concert> {
+public class PassageDao extends AbstractJpaDao<Long, Passage> {
 
     public PassageDao() {
-        this.setClazz(Concert.class);
+        this.setClazz(Passage.class);
     }
 
 

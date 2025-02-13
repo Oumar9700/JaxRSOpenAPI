@@ -3,11 +3,12 @@ package fr.istic.taa.jaxrs.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Organizer extends User {
+public class Organizer extends User implements Serializable {
 
     private List<Concert> concerts = new ArrayList<Concert>();
 

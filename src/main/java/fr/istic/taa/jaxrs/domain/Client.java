@@ -2,11 +2,12 @@ package fr.istic.taa.jaxrs.domain;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Client extends User {
+public class Client extends User implements Serializable {
 
     private List<Ticket> tickets = new ArrayList<Ticket>();
 

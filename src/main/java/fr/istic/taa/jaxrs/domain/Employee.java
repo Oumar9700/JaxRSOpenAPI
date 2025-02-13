@@ -5,8 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
+import java.io.Serializable;
+
 @Entity
-public class Employee {
+public class Employee implements Serializable {
     private Long id;
 
     private String name;

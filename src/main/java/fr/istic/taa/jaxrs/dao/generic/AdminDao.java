@@ -1,11 +1,11 @@
 package fr.istic.taa.jaxrs.dao.generic;
 
-import fr.istic.taa.jaxrs.domain.Concert;
+import fr.istic.taa.jaxrs.domain.Admin;
 
-public class AdminDao extends AbstractJpaDao<Long, Concert> {
+public class AdminDao extends AbstractJpaDao<Long, Admin> {
 
     public AdminDao() {
-        this.setClazz(Concert.class);
+        this.setClazz(Admin.class);
     }
 
 
