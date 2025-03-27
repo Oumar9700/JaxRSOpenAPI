@@ -1,5 +1,6 @@
 package fr.istic.taa.jaxrs.dao.generic;
 
+import fr.istic.taa.jaxrs.dao.generic.configs.AbstractJpaDao;
 import fr.istic.taa.jaxrs.domain.Price;
 
 public class PriceDao extends AbstractJpaDao<Long, Price> {

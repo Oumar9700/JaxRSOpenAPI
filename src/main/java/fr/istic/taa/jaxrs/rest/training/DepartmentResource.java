@@ -1,6 +1,6 @@
 package fr.istic.taa.jaxrs.rest.training;
 
-import fr.istic.taa.jaxrs.dao.generic.DepartmentDao;
+import fr.istic.taa.jaxrs.dao.generic.training.DepartmentDao;
 import fr.istic.taa.jaxrs.domain.training.Department;
 import fr.istic.taa.jaxrs.dto.training.DepartmentDto;
 import io.swagger.v3.oas.annotations.Parameter;
