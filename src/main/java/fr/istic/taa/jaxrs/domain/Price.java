@@ -1,10 +1,13 @@
 package fr.istic.taa.jaxrs.domain;
 
+import fr.istic.taa.jaxrs.dto.AdminDto;
+import fr.istic.taa.jaxrs.dto.PriceDto;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Price implements Serializable {
@@ -79,5 +82,18 @@ public class Price implements Serializable {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    //Transform Price Object to PriceDto
+    public PriceDto toDto(){
+
+        PriceDto dto = new PriceDto();
+        dto.setId(this.getId());
+        dto.setPrice(this.getPrice());
+        dto.setType(this.getType());
+        dto.setDescription(this.getDescription());
+        dto.setConcertId(this.getConcert().getId());
+        dto.setTicketsIds(this.tickets.stream().map(Ticket::getId).collect(Collectors.toList()));
+        return dto;
     }
 }

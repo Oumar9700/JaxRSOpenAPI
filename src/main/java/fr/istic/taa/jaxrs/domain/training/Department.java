@@ -1,11 +1,11 @@
-package fr.istic.taa.jaxrs.domain;
+package fr.istic.taa.jaxrs.domain.training;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import fr.istic.taa.jaxrs.dto.DepartmentDto;
+import fr.istic.taa.jaxrs.dto.training.DepartmentDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -64,6 +64,5 @@ public class Department implements Serializable {
         dto.setName(this.getName());
         dto.setEmployeesIds(this.employees.stream().map(Employee::getId).collect(Collectors.toList()));
         return dto;
-
     }
 }

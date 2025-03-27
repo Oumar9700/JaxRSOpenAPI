@@ -1,12 +1,9 @@
 package fr.istic.taa.jaxrs.domain;
 
-import jakarta.persistence.CascadeType;
+import fr.istic.taa.jaxrs.dto.AdminDto;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Admin extends User implements Serializable {
@@ -21,6 +18,19 @@ public class Admin extends User implements Serializable {
         this.email = email;
         this.gender = gender;
         this.phone = phone;
+    }
+
+    //Transform Admin Object to AdminDto
+    public AdminDto toDto(){
+
+        AdminDto dto = new AdminDto();
+        dto.setId(this.getId());
+        dto.setFirstname(this.getFirstname());
+        dto.setLastname(this.getLastname());
+        dto.setEmail(this.getEmail());
+        dto.setGender(this.getGender());
+        dto.setPhone(this.getPhone());
+        return dto;
     }
 
 }

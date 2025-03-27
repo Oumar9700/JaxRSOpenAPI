@@ -1,7 +1,7 @@
-package fr.istic.taa.jaxrs.rest;
+package fr.istic.taa.jaxrs.rest.training;
 
 import fr.istic.taa.jaxrs.dao.generic.EmployeeDao;
-import fr.istic.taa.jaxrs.domain.Employee;
+import fr.istic.taa.jaxrs.domain.training.Employee;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;

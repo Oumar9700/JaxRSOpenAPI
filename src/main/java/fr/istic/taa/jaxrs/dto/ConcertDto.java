@@ -1,18 +1,17 @@
-package fr.istic.taa.jaxrs.domain;
+package fr.istic.taa.jaxrs.dto;
 
-import fr.istic.taa.jaxrs.dto.ArtistDto;
-import fr.istic.taa.jaxrs.dto.ConcertDto;
-import fr.istic.taa.jaxrs.dto.PlaceDto;
+import fr.istic.taa.jaxrs.domain.Organizer;
+import fr.istic.taa.jaxrs.domain.Passage;
+import fr.istic.taa.jaxrs.domain.Place;
+import fr.istic.taa.jaxrs.domain.Price;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Entity
-public class Concert implements Serializable {
+public class ConcertDto implements Serializable {
 
     private Long id;
 
@@ -27,16 +26,16 @@ public class Concert implements Serializable {
     private String repaymentConditions;
     private boolean validatedConcert;
 
-    private Organizer organizer;
-    private List<Price> prices = new ArrayList<Price>();
-    private List<Place> places = new ArrayList<Place>();
-    private List<Passage> passages = new ArrayList<Passage>();
+    private Long organizerId;
+    private List<Long> pricesIds = new ArrayList<Long>();
+    private List<Long> placesIds = new ArrayList<Long>();
+    private List<Long> passagesIds = new ArrayList<Long>();
 
-    public Concert() {
+    public ConcertDto() {
         super();
     }
 
-    public Concert(String title, String description, int capacity, String country, String city, String address, Date beginDate, Date endDate, String repaymentConditions, boolean validatedConcert) {
+    public ConcertDto(String title, String description, int capacity, String country, String city, String address, Date beginDate, Date endDate, String repaymentConditions, boolean validatedConcert) {
         this.title = title;
         this.description = description;
         this.capacity = capacity;
@@ -49,8 +48,6 @@ public class Concert implements Serializable {
         this.validatedConcert = validatedConcert;
     }
 
-    @Id
-    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -139,61 +136,35 @@ public class Concert implements Serializable {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "concert", cascade = CascadeType.PERSIST)
-    public List<Price> getPrices() {
-        return prices;
+    public Long getOrganizerId() {
+        return organizerId;
     }
 
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
+    public void setOrganizerId(Long organizerId) {
+        this.organizerId = organizerId;
     }
 
-    @OneToMany(mappedBy = "concert", cascade = CascadeType.PERSIST)
-    public List<Place> getPlaces() {
-        return places;
+    public List<Long> getPricesIds() {
+        return pricesIds;
     }
 
-    public void setPlaces(List<Place> places) {
-        this.places = places;
+    public void setPricesIds(List<Long> pricesIds) {
+        this.pricesIds = pricesIds;
     }
 
-    @OneToMany(mappedBy = "concert", cascade = CascadeType.PERSIST)
-    public List<Passage> getPassages() {
-        return passages;
+    public List<Long> getPlacesIds() {
+        return placesIds;
     }
 
-    public void setPassages(List<Passage> passages) {
-        this.passages = passages;
+    public void setPlacesIds(List<Long> placesIds) {
+        this.placesIds = placesIds;
     }
 
-    @ManyToOne
-    public Organizer getOrganizer() {
-        return organizer;
+    public List<Long> getPassagesIds() {
+        return passagesIds;
     }
 
-    public void setOrganizer(Organizer organizer) {
-        this.organizer = organizer;
-    }
-
-    //Transform Concert Object to ConcertDto
-    public ConcertDto toDto(){
-        ConcertDto dto = new ConcertDto();
-        dto.setId(this.getId());
-        dto.setTitle(this.getTitle());
-        dto.setDescription(this.getDescription());
-        dto.setCapacity(this.getCapacity());
-        dto.setCountry(this.getCountry());
-        dto.setCity(this.getCity());
-        dto.setAddress(this.getAddress());
-        dto.setBeginDate(this.getBeginDate());
-        dto.setEndDate(this.getEndDate());
-        dto.setRepaymentConditions(this.getRepaymentConditions());
-        dto.setValidatedConcert(this.isValidatedConcert());
-        dto.setOrganizerId(this.getOrganizer().getId());
-        dto.setPassagesIds(this.passages.stream().map(Passage::getId).collect(Collectors.toList()));
-        dto.setPricesIds(this.prices.stream().map(Price::getId).collect(Collectors.toList()));
-        dto.setPlacesIds(this.places.stream().map(Place::getId).collect(Collectors.toList()));
-
-        return dto;
+    public void setPassagesIds(List<Long> passagesIds) {
+        this.passagesIds = passagesIds;
     }
 }

@@ -1,29 +1,28 @@
-package fr.istic.taa.jaxrs.domain;
+package fr.istic.taa.jaxrs.dto.training;
 
-import jakarta.persistence.Entity;
+import fr.istic.taa.jaxrs.domain.training.Department;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
 
-@Entity
-public class Employee implements Serializable {
+public class EmployeeDto implements Serializable {
     private Long id;
 
     private String name;
 
     private Department department;
 
-    public Employee() {
+    public EmployeeDto() {
     }
 
-    public Employee(String name, Department department) {
+    public EmployeeDto(String name, Department department) {
         this.name = name;
         this.department = department;
     }
 
-    public Employee(String name) {
+    public EmployeeDto(String name) {
         this.name = name;
     }
 

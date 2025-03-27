@@ -1,15 +1,12 @@
-package fr.istic.taa.jaxrs.rest;
+package fr.istic.taa.jaxrs.rest.training;
 
 import fr.istic.taa.jaxrs.dao.generic.DepartmentDao;
-import fr.istic.taa.jaxrs.dao.generic.EmployeeDao;
-import fr.istic.taa.jaxrs.domain.Department;
-import fr.istic.taa.jaxrs.domain.Employee;
-import fr.istic.taa.jaxrs.dto.DepartmentDto;
+import fr.istic.taa.jaxrs.domain.training.Department;
+import fr.istic.taa.jaxrs.dto.training.DepartmentDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

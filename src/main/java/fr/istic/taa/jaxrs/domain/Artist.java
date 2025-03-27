@@ -1,5 +1,6 @@
 package fr.istic.taa.jaxrs.domain;
 
+import fr.istic.taa.jaxrs.dto.ArtistDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -7,6 +8,7 @@ import jakarta.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Artist extends User implements Serializable {
@@ -32,5 +34,18 @@ public class Artist extends User implements Serializable {
 
     public void setPassages(List<Passage> passages) {
         this.passages = passages;
+    }
+
+    //Transform Artist Object to ArtistDto
+    public ArtistDto toDto(){
+        ArtistDto dto = new ArtistDto();
+        dto.setId(this.getId());
+        dto.setFirstname(this.getFirstname());
+        dto.setLastname(this.getLastname());
+        dto.setEmail(this.getEmail());
+        dto.setGender(this.getGender());
+        dto.setPhone(this.getPhone());
+        dto.setPassagesIds(this.passages.stream().map(Passage::getId).collect(Collectors.toList()));
+        return dto;
     }
 }

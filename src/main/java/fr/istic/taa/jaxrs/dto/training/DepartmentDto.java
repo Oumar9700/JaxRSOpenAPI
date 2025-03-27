@@ -1,7 +1,4 @@
-package fr.istic.taa.jaxrs.dto;
-
-import fr.istic.taa.jaxrs.domain.Employee;
-import jakarta.persistence.*;
+package fr.istic.taa.jaxrs.dto.training;
 
 import java.io.Serializable;
 import java.util.ArrayList;

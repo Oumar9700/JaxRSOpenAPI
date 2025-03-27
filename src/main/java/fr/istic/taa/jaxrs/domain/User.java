@@ -1,11 +1,13 @@
 package fr.istic.taa.jaxrs.domain;
 
+
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class User implements Serializable {
@@ -79,4 +81,5 @@ public class User implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
 }

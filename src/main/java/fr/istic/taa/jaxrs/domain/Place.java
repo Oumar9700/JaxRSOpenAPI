@@ -1,5 +1,7 @@
 package fr.istic.taa.jaxrs.domain;
 
+import fr.istic.taa.jaxrs.dto.AdminDto;
+import fr.istic.taa.jaxrs.dto.PlaceDto;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -66,5 +68,18 @@ public class Place implements Serializable {
 
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
+    }
+
+    //Transform Place Object to PlaceDto
+    public PlaceDto toDto(){
+
+        PlaceDto dto = new PlaceDto();
+        dto.setId(this.getId());
+        dto.setNumber(this.getNumber());
+        dto.setPlaceStatus(this.getPlaceStatus());
+        dto.setConcertId(this.getConcert().getId());
+        dto.setTicketId(this.getTicket().getId());
+
+        return dto;
     }
 }

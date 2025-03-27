@@ -2,8 +2,8 @@ package fr.istic.taa.jaxrs.jpa;
 
 import java.util.List;
 
-import fr.istic.taa.jaxrs.domain.Department;
-import fr.istic.taa.jaxrs.domain.Employee;
+import fr.istic.taa.jaxrs.domain.training.Department;
+import fr.istic.taa.jaxrs.domain.training.Employee;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -43,11 +43,11 @@ public class JpaTest2 {
 
     private void createEmployees() {
         //Recuperer la taille du nombre d'employes
-        int numOfEmployees = manager.createQuery("Select a From Employee a", fr.istic.taa.jaxrs.domain.Employee.class).getResultList().size();
+        int numOfEmployees = manager.createQuery("Select a From Employee a", Employee.class).getResultList().size();
 
         //si nombre d'employes == 0, inserer un departement puis inserer deux employes
         if (numOfEmployees == 0) {
-            fr.istic.taa.jaxrs.domain.Department department = new Department("java");
+            Department department = new Department("java");
             manager.persist(department);
 
             manager.persist(new Employee("Jakab Gipsz",department));

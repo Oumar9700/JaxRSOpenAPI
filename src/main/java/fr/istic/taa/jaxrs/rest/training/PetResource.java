@@ -1,6 +1,6 @@
-package fr.istic.taa.jaxrs.rest;
+package fr.istic.taa.jaxrs.rest.training;
 
-import fr.istic.taa.jaxrs.domain.Pet;
+import fr.istic.taa.jaxrs.domain.training.Pet;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
