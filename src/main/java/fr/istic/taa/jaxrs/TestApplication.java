@@ -21,6 +21,7 @@ import java.util.Set;
 
 import fr.istic.taa.jaxrs.rest.AdminResource;
 import fr.istic.taa.jaxrs.rest.ClientResource;
+import fr.istic.taa.jaxrs.rest.ConcertResource;
 import fr.istic.taa.jaxrs.rest.OrganizerResource;
 import fr.istic.taa.jaxrs.rest.training.DepartmentResource;
 import fr.istic.taa.jaxrs.rest.training.PetResource;
@@ -44,6 +45,7 @@ public class TestApplication extends Application {
         clazzes.add(ClientResource.class);
         clazzes.add(AdminResource.class);
         clazzes.add(OrganizerResource.class);
+        clazzes.add(ConcertResource.class);
 //        clazzes.add(AcceptHeaderOpenApiResource.class);
 
 

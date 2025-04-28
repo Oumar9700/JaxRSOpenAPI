@@ -38,7 +38,6 @@ public class AdminResource {
       @Parameter(description = "User object that needs to be added to the store", required = true) AdminDto adminDto) {
 
     Admin admin = new Admin();
-    admin.setId(adminDto.getId());
     admin.setFirstname(adminDto.getFirstname());
     admin.setLastname(adminDto.getLastname());
     admin.setEmail(adminDto.getEmail());

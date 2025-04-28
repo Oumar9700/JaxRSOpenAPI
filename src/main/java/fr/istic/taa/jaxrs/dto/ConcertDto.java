@@ -17,25 +17,24 @@ public class ConcertDto implements Serializable {
 
     private String title;
     private String description;
-    private int capacity; //nullable pour signifier une capacité illimitée
+    private Integer capacity; // nullable => Integer, pas int
     private String country;
     private String city;
     private String address;
     private Date beginDate;
-    private Date endDate; //nullable
+    private Date endDate; // nullable
     private String repaymentConditions;
     private boolean validatedConcert;
 
     private Long organizerId;
-    private List<Long> pricesIds = new ArrayList<Long>();
-    private List<Long> placesIds = new ArrayList<Long>();
-    private List<Long> passagesIds = new ArrayList<Long>();
+
+    private List<PriceDto> prices = new ArrayList<>(); // **changer ici**
 
     public ConcertDto() {
         super();
     }
 
-    public ConcertDto(String title, String description, int capacity, String country, String city, String address, Date beginDate, Date endDate, String repaymentConditions, boolean validatedConcert) {
+    public ConcertDto(String title, String description, Integer capacity, String country, String city, String address, Date beginDate, Date endDate, String repaymentConditions, boolean validatedConcert) {
         this.title = title;
         this.description = description;
         this.capacity = capacity;
@@ -47,6 +46,8 @@ public class ConcertDto implements Serializable {
         this.repaymentConditions = repaymentConditions;
         this.validatedConcert = validatedConcert;
     }
+
+    // Getters & Setters
 
     public Long getId() {
         return id;
@@ -64,52 +65,20 @@ public class ConcertDto implements Serializable {
         this.title = title;
     }
 
-    public boolean isValidatedConcert() {
-        return validatedConcert;
+    public String getDescription() {
+        return description;
     }
 
-    public void setValidatedConcert(boolean validatedConcert) {
-        this.validatedConcert = validatedConcert;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getRepaymentConditions() {
-        return repaymentConditions;
+    public Integer getCapacity() {
+        return capacity;
     }
 
-    public void setRepaymentConditions(String repaymentConditions) {
-        this.repaymentConditions = repaymentConditions;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Date getBeginDate() {
-        return beginDate;
-    }
-
-    public void setBeginDate(Date beginDate) {
-        this.beginDate = beginDate;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     public String getCountry() {
@@ -120,20 +89,52 @@ public class ConcertDto implements Serializable {
         this.country = country;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public String getCity() {
+        return city;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getBeginDate() {
+        return beginDate;
+    }
+
+    public void setBeginDate(Date beginDate) {
+        this.beginDate = beginDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getRepaymentConditions() {
+        return repaymentConditions;
+    }
+
+    public void setRepaymentConditions(String repaymentConditions) {
+        this.repaymentConditions = repaymentConditions;
+    }
+
+    public boolean isValidatedConcert() {
+        return validatedConcert;
+    }
+
+    public void setValidatedConcert(boolean validatedConcert) {
+        this.validatedConcert = validatedConcert;
     }
 
     public Long getOrganizerId() {
@@ -144,27 +145,13 @@ public class ConcertDto implements Serializable {
         this.organizerId = organizerId;
     }
 
-    public List<Long> getPricesIds() {
-        return pricesIds;
+    public List<PriceDto> getPrices() {
+        return prices;
     }
 
-    public void setPricesIds(List<Long> pricesIds) {
-        this.pricesIds = pricesIds;
+    public void setPrices(List<PriceDto> prices) {
+        this.prices = prices;
     }
 
-    public List<Long> getPlacesIds() {
-        return placesIds;
-    }
 
-    public void setPlacesIds(List<Long> placesIds) {
-        this.placesIds = placesIds;
-    }
-
-    public List<Long> getPassagesIds() {
-        return passagesIds;
-    }
-
-    public void setPassagesIds(List<Long> passagesIds) {
-        this.passagesIds = passagesIds;
-    }
 }

@@ -39,7 +39,6 @@ public class ClientResource {
       @Parameter(description = "User object that needs to be added to the store", required = true) ClientDto clientDto) {
 
     Client client = new Client();
-    client.setId(clientDto.getId());
     client.setFirstname(clientDto.getFirstname());
     client.setLastname(clientDto.getLastname());
     client.setEmail(clientDto.getEmail());

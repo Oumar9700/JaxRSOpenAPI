@@ -38,7 +38,6 @@ public class OrganizerResource {
       @Parameter(description = "User object that needs to be added to the store", required = true) OrganizerDto organizerDto) {
 
     Organizer organizer = new Organizer();
-    organizer.setId(organizerDto.getId());
     organizer.setFirstname(organizerDto.getFirstname());
     organizer.setLastname(organizerDto.getLastname());
     organizer.setEmail(organizerDto.getEmail());

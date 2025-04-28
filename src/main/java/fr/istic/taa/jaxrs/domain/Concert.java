@@ -18,7 +18,7 @@ public class Concert implements Serializable {
 
     private String title;
     private String description;
-    private int capacity; //nullable pour signifier une capacité illimitée
+    private Integer capacity; //nullable pour signifier une capacité illimitée
     private String country;
     private String city;
     private String address;
@@ -36,7 +36,7 @@ public class Concert implements Serializable {
         super();
     }
 
-    public Concert(String title, String description, int capacity, String country, String city, String address, Date beginDate, Date endDate, String repaymentConditions, boolean validatedConcert) {
+    public Concert(String title, String description, Integer capacity, String country, String city, String address, Date beginDate, Date endDate, String repaymentConditions, boolean validatedConcert) {
         this.title = title;
         this.description = description;
         this.capacity = capacity;
@@ -123,11 +123,11 @@ public class Concert implements Serializable {
         this.country = country;
     }
 
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
@@ -190,9 +190,10 @@ public class Concert implements Serializable {
         dto.setRepaymentConditions(this.getRepaymentConditions());
         dto.setValidatedConcert(this.isValidatedConcert());
         dto.setOrganizerId(this.getOrganizer().getId());
-        dto.setPassagesIds(this.passages.stream().map(Passage::getId).collect(Collectors.toList()));
-        dto.setPricesIds(this.prices.stream().map(Price::getId).collect(Collectors.toList()));
-        dto.setPlacesIds(this.places.stream().map(Place::getId).collect(Collectors.toList()));
+
+        //dto.setPassagesIds(this.passages.stream().map(Passage::getId).collect(Collectors.toList()));
+        dto.setPrices(this.prices.stream().map(Price::toDto).collect(Collectors.toList()));
+        //dto.setPlacesIds(this.places.stream().map(Place::getId).collect(Collectors.toList()));
 
         return dto;
     }
