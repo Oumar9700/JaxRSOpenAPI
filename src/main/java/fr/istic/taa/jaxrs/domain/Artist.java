@@ -19,7 +19,7 @@ public class Artist extends User implements Serializable {
         super();
     }
 
-    public Artist(String firstname, String lastname, String email, String sexe, String phone) {
+    public Artist(String firstname, String lastname, String email, Gender gender, String phone) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;

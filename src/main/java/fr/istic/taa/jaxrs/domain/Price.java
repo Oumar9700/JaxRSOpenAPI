@@ -1,6 +1,5 @@
 package fr.istic.taa.jaxrs.domain;
 
-import fr.istic.taa.jaxrs.dto.AdminDto;
 import fr.istic.taa.jaxrs.dto.PriceDto;
 import jakarta.persistence.*;
 
@@ -15,7 +14,8 @@ public class Price implements Serializable {
     private Long id;
 
     private double price;
-    private String type; //VIP, PREMIUM, NORMAL
+    @Enumerated(EnumType.STRING)
+    private PriceType type; //VIP, PREMIUM, NORMAL
     private String description;
 
     private Concert concert;
@@ -25,7 +25,7 @@ public class Price implements Serializable {
         super();
     }
 
-    public Price(double price, String type, String description, Concert concert) {
+    public Price(double price, PriceType type, String description, Concert concert) {
         this.price = price;
         this.type = type;
         this.description = description;
@@ -50,11 +50,11 @@ public class Price implements Serializable {
         this.price = price;
     }
 
-    public String getType() {
+    public PriceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PriceType type) {
         this.type = type;
     }
 

@@ -1,8 +1,6 @@
 package fr.istic.taa.jaxrs.dto;
 
-import fr.istic.taa.jaxrs.domain.Concert;
-import fr.istic.taa.jaxrs.domain.Ticket;
-import jakarta.persistence.*;
+import fr.istic.taa.jaxrs.domain.PriceType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ public class PriceDto implements Serializable {
     private Long id;
 
     private double price;
-    private String type; //VIP, PREMIUM, NORMAL
+    private PriceType type; //VIP, PREMIUM, NORMAL
     private String description;
 
     private Long concertId;
@@ -23,7 +21,7 @@ public class PriceDto implements Serializable {
         super();
     }
 
-    public PriceDto(double price, String type, String description, Long concertId) {
+    public PriceDto(double price, PriceType type, String description, Long concertId) {
         this.price = price;
         this.type = type;
         this.description = description;
@@ -47,11 +45,11 @@ public class PriceDto implements Serializable {
         this.price = price;
     }
 
-    public String getType() {
+    public PriceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PriceType type) {
         this.type = type;
     }
 

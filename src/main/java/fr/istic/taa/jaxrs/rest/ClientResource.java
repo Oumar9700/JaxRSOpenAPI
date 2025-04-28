@@ -3,7 +3,6 @@ package fr.istic.taa.jaxrs.rest;
 import fr.istic.taa.jaxrs.dao.generic.ClientDao;
 import fr.istic.taa.jaxrs.domain.Client;
 import fr.istic.taa.jaxrs.domain.User;
-import fr.istic.taa.jaxrs.domain.training.Department;
 import fr.istic.taa.jaxrs.dto.ClientDto;
 import fr.istic.taa.jaxrs.dto.training.DepartmentDto;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -47,8 +46,40 @@ public class ClientResource {
     client.setPhone(clientDto.getPhone());
     client.setGender(clientDto.getGender());
     clientDao.save(client);
+
     return Response.status(Response.Status.CREATED).entity("Client created successfully").build();
 
     //return Response.ok().entity("SUCCESS").build();
+  }
+
+
+  @PUT
+  @Path("/{clientId}")
+  public Response updateClient(@PathParam("clientId") Long clientId, ClientDto clientDto) {
+    System.out.println("clientid, :"+ clientId);
+    Client client = clientDao.findOne(clientId);
+    if (client == null) {
+      return Response.status(Response.Status.NOT_FOUND).entity("Client not found").build();
+    }
+
+    client.setFirstname(clientDto.getFirstname());
+    client.setLastname(clientDto.getLastname());
+    client.setEmail(clientDto.getEmail());
+    client.setPhone(clientDto.getPhone());
+    client.setGender(clientDto.getGender());
+    clientDao.update(client);
+
+    return Response.ok("Client updated successfully").build();
+  }
+
+  @DELETE
+  @Path("/{clientId}")
+  public Response deleteClient(@PathParam("clientId") Long clientId) {
+    Client client = clientDao.findOne(clientId);
+    if (client == null) {
+      return Response.status(Response.Status.NOT_FOUND).entity("Client not found").build();
+    }
+    clientDao.delete(client);
+    return Response.ok("Client deleted successfully").build();
   }
 }
