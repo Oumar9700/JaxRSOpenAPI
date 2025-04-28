@@ -72,7 +72,7 @@ public class AdminResource {
 
   @DELETE
   @Path("/{adminId}")
-  public Response deleteClient(@PathParam("adminId") Long adminId) {
+  public Response deleteAdmin(@PathParam("adminId") Long adminId) {
     Admin admin = adminDao.findOne(adminId);
     if (admin == null) {
       return Response.status(Response.Status.NOT_FOUND).entity("Admin not found").build();
