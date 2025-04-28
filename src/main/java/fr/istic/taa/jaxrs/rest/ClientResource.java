@@ -56,7 +56,7 @@ public class ClientResource {
   @PUT
   @Path("/{clientId}")
   public Response updateClient(@PathParam("clientId") Long clientId, ClientDto clientDto) {
-    System.out.println("clientid, :"+ clientId);
+
     Client client = clientDao.findOne(clientId);
     if (client == null) {
       return Response.status(Response.Status.NOT_FOUND).entity("Client not found").build();
