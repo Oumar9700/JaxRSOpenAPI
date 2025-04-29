@@ -15,22 +15,12 @@ import java.util.stream.Collectors;
 @Entity
 public class Organizer extends User implements Serializable {
 
-    private Long id;
     private List<Concert> concerts = new ArrayList<Concert>();
 
     public Organizer() {
         super();
     }
 
-    @Id
-    @GeneratedValue
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @OneToMany(mappedBy = "organizer")
     public List<Concert> getConcerts() {

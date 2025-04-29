@@ -11,21 +11,10 @@ import java.util.stream.Collectors;
 @Entity
 public class Artist extends User implements Serializable {
 
-    private Long id;
     private List<Passage> passages = new ArrayList<Passage>();
 
     public Artist() {
         super();
-    }
-
-    @Id
-    @GeneratedValue
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Artist(String firstname, String lastname, String email, Gender gender, String phone) {

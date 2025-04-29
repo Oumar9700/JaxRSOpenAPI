@@ -1,10 +1,11 @@
+
 package fr.istic.taa.jaxrs.rest;
 
-import fr.istic.taa.jaxrs.dao.generic.ClientDao;
 import fr.istic.taa.jaxrs.dao.generic.UserDao;
+import fr.istic.taa.jaxrs.domain.Admin;
 import fr.istic.taa.jaxrs.domain.Client;
+import fr.istic.taa.jaxrs.domain.Organizer;
 import fr.istic.taa.jaxrs.domain.User;
-import fr.istic.taa.jaxrs.dto.ClientDto;
 import fr.istic.taa.jaxrs.dto.LoginDto;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -26,6 +27,9 @@ public class LoginResource {
     UserDao userDao = new UserDao();
     User user = userDao.findByEmail(loginDto.getEmail());
 
+    System.out.println("voici user :");
+    System.out.println(user);
+
     if (user == null || !user.getPassword().equals(loginDto.getPassword())) {
       HashMap<Object, Object> errorResponse = new HashMap<>();
       errorResponse.put("message", "Invalid email or password");
@@ -35,18 +39,30 @@ public class LoginResource {
               .build();
     }
 
-    // Création DTO réponse sans le mot de passe
-    ClientDto responseDto = new ClientDto();
-    responseDto.setId(user.getId());
-    responseDto.setFirstname(user.getFirstname());
-    responseDto.setLastname(user.getLastname());
-    responseDto.setEmail(user.getEmail());
-    responseDto.setPhone(user.getPhone());
-    responseDto.setGender(user.getGender());
+    Map<String, Object> data = new HashMap<>();
+    data.put("id", user.getId());
+    data.put("firstname", user.getFirstname());
+    data.put("lastname", user.getLastname());
+    data.put("email", user.getEmail());
+    data.put("phone", user.getPhone());
+    data.put("gender", user.getGender());
+
+    if (user instanceof Client) {
+      data.put("role", "client");
+    } else if (user instanceof Admin) {
+      data.put("role", "admin");
+    }else if (user instanceof Organizer) {
+      data.put("role", "organizer");
+    }
+    else {
+      data.put("role", "user");
+    }
+
 
     Map<String, Object> response = new HashMap<>();
     response.put("message", "Login successful");
-    response.put("data", responseDto);
+    response.put("data", data);
+
 
     return Response.ok()
             .entity(response)
