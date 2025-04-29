@@ -43,6 +43,7 @@ public class OrganizerResource {
     organizer.setEmail(organizerDto.getEmail());
     organizer.setPhone(organizerDto.getPhone());
     organizer.setGender(organizerDto.getGender());
+    organizer.setPassword(organizerDto.getPassword());
     organizerDao.save(organizer);
 
     return Response.status(Response.Status.CREATED).entity("organizer created successfully").build();

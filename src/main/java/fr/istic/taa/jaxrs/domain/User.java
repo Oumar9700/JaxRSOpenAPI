@@ -19,6 +19,7 @@ public class User implements Serializable {
     protected String email;
     protected Gender gender;
     protected String phone;
+    protected String password;
 
     public User() {
         super();
@@ -34,12 +35,13 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(String firstname, String lastname, String email, Gender gender, String phone) {
+    public User(String firstname, String lastname, String email, Gender gender, String phone, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.gender = gender;
         this.phone = phone;
+        this.password = password;
     }
 
     public String getFirstname() {
@@ -82,4 +84,11 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

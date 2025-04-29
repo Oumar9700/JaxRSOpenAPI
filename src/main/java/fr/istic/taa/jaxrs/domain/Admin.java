@@ -12,12 +12,13 @@ public class Admin extends User implements Serializable {
         super();
     }
 
-    public Admin(String firstname, String lastname, String email, Gender gender, String phone) {
+    public Admin(String firstname, String lastname, String email, Gender gender, String phone, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.gender = gender;
         this.phone = phone;
+        this.password = password;
     }
 
     //Transform Admin Object to AdminDto

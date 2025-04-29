@@ -43,6 +43,7 @@ public class AdminResource {
     admin.setEmail(adminDto.getEmail());
     admin.setPhone(adminDto.getPhone());
     admin.setGender(adminDto.getGender());
+    admin.setPassword(adminDto.getPassword());
     adminDao.save(admin);
 
     return Response.status(Response.Status.CREATED).entity("Admin created successfully").build();

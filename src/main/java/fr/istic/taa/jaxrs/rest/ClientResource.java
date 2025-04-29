@@ -44,6 +44,7 @@ public class ClientResource {
     client.setEmail(clientDto.getEmail());
     client.setPhone(clientDto.getPhone());
     client.setGender(clientDto.getGender());
+    client.setPassword(clientDto.getPassword());
     clientDao.save(client);
 
     return Response.status(Response.Status.CREATED).entity("Client created successfully").build();
