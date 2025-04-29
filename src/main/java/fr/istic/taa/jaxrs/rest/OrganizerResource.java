@@ -6,6 +6,7 @@ import fr.istic.taa.jaxrs.domain.User;
 import fr.istic.taa.jaxrs.dto.OrganizerDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
@@ -33,7 +34,8 @@ public class OrganizerResource {
 
   
   @POST
-  @Consumes("application/json")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
   public Response addOrganizer(
       @Parameter(description = "User object that needs to be added to the store", required = true) OrganizerDto organizerDto) {
 

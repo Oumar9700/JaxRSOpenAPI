@@ -37,6 +37,8 @@ public class TestApplication extends Application {
         final Set<Class<?>> clazzes = new HashSet<Class<?>>();
 
         clazzes.add(JacksonConfig.class);  //Pour gérer les heures de passages . LocalDateTime
+        clazzes.add(CORSFilter.class);
+
 
         clazzes.add(OpenApiResource.class);
         clazzes.add(PetResource.class);

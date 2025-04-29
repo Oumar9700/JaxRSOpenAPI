@@ -7,9 +7,13 @@ import fr.istic.taa.jaxrs.dto.ClientDto;
 import fr.istic.taa.jaxrs.dto.training.DepartmentDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Path("client")
@@ -32,12 +36,15 @@ public class ClientResource {
     return clients.stream().map(Client::toDto).collect(Collectors.toList());
   }
 
-  
-  @POST
-  @Consumes("application/json")
-  public Response addUser(
-      @Parameter(description = "User object that needs to be added to the store", required = true) ClientDto clientDto) {
 
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response addUser(
+          @Parameter(description = "User object that needs to be added to the store", required = true)
+          ClientDto clientDto) {
+
+    // Transformation DTO → Entity
     Client client = new Client();
     client.setFirstname(clientDto.getFirstname());
     client.setLastname(clientDto.getLastname());
@@ -45,12 +52,30 @@ public class ClientResource {
     client.setPhone(clientDto.getPhone());
     client.setGender(clientDto.getGender());
     client.setPassword(clientDto.getPassword());
+
+    // Persistance
     clientDao.save(client);
 
-    return Response.status(Response.Status.CREATED).entity("Client created successfully").build();
+    // On transforme vers un DTO à renvoyer sans mot de passe
+    ClientDto responseDto = new ClientDto();
+    responseDto.setFirstname(client.getFirstname());
+    responseDto.setLastname(client.getLastname());
+    responseDto.setEmail(client.getEmail());
+    responseDto.setPhone(client.getPhone());
+    responseDto.setGender(client.getGender());
+    // On ne met PAS le mot de passe
 
-    //return Response.ok().entity("SUCCESS").build();
+    // Création d'une Map pour structure JSON simple
+    Map<String, Object> responseBody = new HashMap<>();
+    responseBody.put("message", "Client created successfully");
+    responseBody.put("data", responseDto);
+
+    return Response.status(Response.Status.CREATED)
+            .entity(responseBody)
+            .type(MediaType.APPLICATION_JSON)
+            .build();
   }
+
 
 
   @PUT
