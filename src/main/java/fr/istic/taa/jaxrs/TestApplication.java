@@ -54,6 +54,8 @@ public class TestApplication extends Application {
         clazzes.add(PriceResource.class);
         clazzes.add(TicketResource.class);
 
+        clazzes.add(LoginResource.class);
+
 //        clazzes.add(AcceptHeaderOpenApiResource.class);
 
 

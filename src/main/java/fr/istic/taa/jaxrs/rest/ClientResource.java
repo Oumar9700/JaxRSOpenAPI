@@ -1,6 +1,7 @@
 package fr.istic.taa.jaxrs.rest;
 
 import fr.istic.taa.jaxrs.dao.generic.ClientDao;
+import fr.istic.taa.jaxrs.dao.generic.UserDao;
 import fr.istic.taa.jaxrs.domain.Client;
 import fr.istic.taa.jaxrs.domain.User;
 import fr.istic.taa.jaxrs.dto.ClientDto;
@@ -44,6 +45,18 @@ public class ClientResource {
           @Parameter(description = "User object that needs to be added to the store", required = true)
           ClientDto clientDto) {
 
+    // Vérifier si un client avec cet email existe déjà
+    UserDao userDao = new UserDao();
+    User existingUser = userDao.findByEmail(clientDto.getEmail());
+    if (existingUser != null) {
+      Map<String, Object> errorResponse = new HashMap<>();
+      errorResponse.put("message", "Email already in use");
+      return Response.status(Response.Status.CONFLICT)
+              .entity(errorResponse)
+              .type(MediaType.APPLICATION_JSON)
+              .build();
+    }
+
     // Transformation DTO → Entity
     Client client = new Client();
     client.setFirstname(clientDto.getFirstname());
@@ -56,16 +69,16 @@ public class ClientResource {
     // Persistance
     clientDao.save(client);
 
-    // On transforme vers un DTO à renvoyer sans mot de passe
+    // Transformation vers DTO à renvoyer (sans mot de passe)
     ClientDto responseDto = new ClientDto();
+    responseDto.setId(client.getId());
     responseDto.setFirstname(client.getFirstname());
     responseDto.setLastname(client.getLastname());
     responseDto.setEmail(client.getEmail());
     responseDto.setPhone(client.getPhone());
     responseDto.setGender(client.getGender());
-    // On ne met PAS le mot de passe
 
-    // Création d'une Map pour structure JSON simple
+    // Réponse JSON
     Map<String, Object> responseBody = new HashMap<>();
     responseBody.put("message", "Client created successfully");
     responseBody.put("data", responseDto);

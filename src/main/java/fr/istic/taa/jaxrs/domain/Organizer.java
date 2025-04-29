@@ -3,6 +3,8 @@ package fr.istic.taa.jaxrs.domain;
 import fr.istic.taa.jaxrs.dto.AdminDto;
 import fr.istic.taa.jaxrs.dto.OrganizerDto;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.io.Serializable;
@@ -13,10 +15,21 @@ import java.util.stream.Collectors;
 @Entity
 public class Organizer extends User implements Serializable {
 
+    private Long id;
     private List<Concert> concerts = new ArrayList<Concert>();
 
     public Organizer() {
         super();
+    }
+
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @OneToMany(mappedBy = "organizer")

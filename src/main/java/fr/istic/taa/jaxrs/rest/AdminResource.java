@@ -1,14 +1,19 @@
 package fr.istic.taa.jaxrs.rest;
 
 import fr.istic.taa.jaxrs.dao.generic.AdminDao;
+import fr.istic.taa.jaxrs.dao.generic.UserDao;
 import fr.istic.taa.jaxrs.domain.Admin;
 import fr.istic.taa.jaxrs.domain.User;
 import fr.istic.taa.jaxrs.dto.AdminDto;
+import fr.istic.taa.jaxrs.dto.ClientDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Path("admin")
@@ -37,6 +42,17 @@ public class AdminResource {
   public Response addAdmin(
       @Parameter(description = "User object that needs to be added to the store", required = true) AdminDto adminDto) {
 
+    UserDao userDao = new UserDao();
+    User existingUser = userDao.findByEmail(adminDto.getEmail());
+    if (existingUser != null) {
+      Map<String, Object> errorResponse = new HashMap<>();
+      errorResponse.put("message", "Email already in use");
+      return Response.status(Response.Status.CONFLICT)
+              .entity(errorResponse)
+              .type(MediaType.APPLICATION_JSON)
+              .build();
+    }
+
     Admin admin = new Admin();
     admin.setFirstname(adminDto.getFirstname());
     admin.setLastname(adminDto.getLastname());
@@ -46,7 +62,24 @@ public class AdminResource {
     admin.setPassword(adminDto.getPassword());
     adminDao.save(admin);
 
-    return Response.status(Response.Status.CREATED).entity("Admin created successfully").build();
+    // Transformation vers DTO à renvoyer (sans mot de passe)
+    AdminDto responseDto = new AdminDto();
+    responseDto.setId(admin.getId());
+    responseDto.setFirstname(admin.getFirstname());
+    responseDto.setLastname(admin.getLastname());
+    responseDto.setEmail(admin.getEmail());
+    responseDto.setPhone(admin.getPhone());
+    responseDto.setGender(admin.getGender());
+
+    // Réponse JSON
+    Map<String, Object> responseBody = new HashMap<>();
+    responseBody.put("message", "Admin created successfully");
+    responseBody.put("data", responseDto);
+
+    return Response.status(Response.Status.CREATED)
+            .entity(responseBody)
+            .type(MediaType.APPLICATION_JSON)
+            .build();
 
     //return Response.ok().entity("SUCCESS").build();
   }

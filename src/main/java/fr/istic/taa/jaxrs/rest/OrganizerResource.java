@@ -1,15 +1,19 @@
 package fr.istic.taa.jaxrs.rest;
 
 import fr.istic.taa.jaxrs.dao.generic.OrganizerDao;
+import fr.istic.taa.jaxrs.dao.generic.UserDao;
 import fr.istic.taa.jaxrs.domain.Organizer;
 import fr.istic.taa.jaxrs.domain.User;
+import fr.istic.taa.jaxrs.dto.ClientDto;
 import fr.istic.taa.jaxrs.dto.OrganizerDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Path("organizer")
@@ -39,6 +43,17 @@ public class OrganizerResource {
   public Response addOrganizer(
       @Parameter(description = "User object that needs to be added to the store", required = true) OrganizerDto organizerDto) {
 
+    UserDao userDao = new UserDao();
+    User existingUser = userDao.findByEmail(organizerDto.getEmail());
+    if (existingUser != null) {
+      Map<String, Object> errorResponse = new HashMap<>();
+      errorResponse.put("message", "Email already in use");
+      return Response.status(Response.Status.CONFLICT)
+              .entity(errorResponse)
+              .type(MediaType.APPLICATION_JSON)
+              .build();
+    }
+
     Organizer organizer = new Organizer();
     organizer.setFirstname(organizerDto.getFirstname());
     organizer.setLastname(organizerDto.getLastname());
@@ -48,9 +63,24 @@ public class OrganizerResource {
     organizer.setPassword(organizerDto.getPassword());
     organizerDao.save(organizer);
 
-    return Response.status(Response.Status.CREATED).entity("organizer created successfully").build();
+    // Transformation vers DTO à renvoyer (sans mot de passe)
+    OrganizerDto responseDto = new OrganizerDto();
+    responseDto.setId(organizer.getId());
+    responseDto.setFirstname(organizer.getFirstname());
+    responseDto.setLastname(organizer.getLastname());
+    responseDto.setEmail(organizer.getEmail());
+    responseDto.setPhone(organizer.getPhone());
+    responseDto.setGender(organizer.getGender());
 
-    //return Response.ok().entity("SUCCESS").build();
+    // Réponse JSON
+    Map<String, Object> responseBody = new HashMap<>();
+    responseBody.put("message", "Organizer created successfully");
+    responseBody.put("data", responseDto);
+
+    return Response.status(Response.Status.CREATED)
+            .entity(responseBody)
+            .type(MediaType.APPLICATION_JSON)
+            .build();
   }
 
 
