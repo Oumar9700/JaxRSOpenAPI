@@ -19,6 +19,7 @@ package fr.istic.taa.jaxrs;
 import java.util.HashSet;
 import java.util.Set;
 
+import fr.istic.taa.jaxrs.domain.Place;
 import fr.istic.taa.jaxrs.rest.*;
 import fr.istic.taa.jaxrs.rest.training.DepartmentResource;
 import fr.istic.taa.jaxrs.rest.training.PetResource;
@@ -47,6 +48,9 @@ public class TestApplication extends Application {
         clazzes.add(ConcertResource.class);
         clazzes.add(ArtistResource.class);
         clazzes.add(PassageResource.class);
+        clazzes.add(PlaceResource.class);
+        clazzes.add(PriceResource.class);
+        clazzes.add(TicketResource.class);
 
 //        clazzes.add(AcceptHeaderOpenApiResource.class);
 

@@ -24,6 +24,7 @@ public class PlaceDto implements Serializable {
         this.number = number;
         this.placeStatus = placeStatus;
         this.concertId = concertId;
+
     }
 
     public Long getId() {

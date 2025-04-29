@@ -78,7 +78,14 @@ public class Place implements Serializable {
         dto.setNumber(this.getNumber());
         dto.setPlaceStatus(this.getPlaceStatus());
         dto.setConcertId(this.getConcert().getId());
-        dto.setTicketId(this.getTicket().getId());
+
+        if (this.getTicket() != null) {
+
+            dto.setTicketId(this.getTicket().getId());
+            // utilise ticketId...
+        }
+
+
 
         return dto;
     }

@@ -12,9 +12,9 @@ public class TicketDto implements Serializable {
     private Long id;
 
     private boolean status;
-    private Price price;
-    private Client client;
-    private Place place;
+    private Long priceId;
+    private Long clientId;
+    private Long placeId;
 
     public TicketDto() {
         super();
@@ -41,26 +41,28 @@ public class TicketDto implements Serializable {
     }
 
     public Long getPriceId() {
-        return price.getId()    ;
+        return priceId    ;
     }
 
     public void setPriceId(Long priceId) {
-        this.price.setId(priceId);
+        this.priceId = priceId;
     }
 
     public Long getClientId() {
-        return client.getId();
+        return clientId;
     }
 
     public void setClientId(Long clientId) {
-        this.client.setId(clientId);
+
+        this.clientId = clientId;
     }
 
     public Long getPlaceId() {
-        return place.getId()    ;
+        return placeId;
     }
 
     public void setPlaceId(Long placeId) {
-        this.place.setId(placeId);
+
+        this.placeId = placeId;
     }
 }
