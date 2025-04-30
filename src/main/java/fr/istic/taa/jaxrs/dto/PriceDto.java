@@ -1,7 +1,5 @@
 package fr.istic.taa.jaxrs.dto;
 
-import fr.istic.taa.jaxrs.domain.PriceType;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,7 @@ public class PriceDto implements Serializable {
     private Long id;
 
     private double price;
-    private PriceType type; //VIP, PREMIUM, NORMAL
+    private String type; //VIP, PREMIUM, NORMAL
     private String description;
 
     private Long concertId;
@@ -21,7 +19,7 @@ public class PriceDto implements Serializable {
         super();
     }
 
-    public PriceDto(double price, PriceType type, String description, Long concertId) {
+    public PriceDto(double price, String type, String description, Long concertId) {
         this.price = price;
         this.type = type;
         this.description = description;
@@ -45,11 +43,11 @@ public class PriceDto implements Serializable {
         this.price = price;
     }
 
-    public PriceType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(PriceType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

@@ -26,14 +26,14 @@ public class PassageResource {
   @Path("/{passageId}")
   public PassageDto getPassageById(@PathParam("passageId") Long passageId)  {
     Passage passage =  passageDao.findOne(passageId);
-    return passage.toDto();
+    return passage.toSimpleDto();
   }
 
   @GET
   @Path("/")
   public List<PassageDto> getPassages()  {
     List<Passage> passages =  passageDao.findAll();
-    return passages.stream().map(Passage::toDto).collect(Collectors.toList());
+    return passages.stream().map(Passage::toSimpleDto).collect(Collectors.toList());
   }
 
 

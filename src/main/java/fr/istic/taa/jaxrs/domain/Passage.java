@@ -1,6 +1,7 @@
 package fr.istic.taa.jaxrs.domain;
 
 import fr.istic.taa.jaxrs.dto.AdminDto;
+import fr.istic.taa.jaxrs.dto.PassageArtistDto;
 import fr.istic.taa.jaxrs.dto.PassageDto;
 import jakarta.persistence.*;
 
@@ -76,7 +77,20 @@ public class Passage implements Serializable {
     }
 
     //Transform Passage Object to PassageDto
-    public PassageDto toDto(){
+    public PassageArtistDto toDto(){
+
+        PassageArtistDto dto = new PassageArtistDto();
+        dto.setId(this.getId());
+        dto.setBeginHour(this.getBeginHour());
+        dto.setEndHour(this.getEndHour());
+        dto.setConcertId(this.getConcert().getId());
+        dto.setArtistFirstname(this.getArtist().getFirstname());
+        dto.setArtistLastname(this.getArtist().getLastname());
+
+        return dto;
+    }
+
+    public PassageDto toSimpleDto(){
 
         PassageDto dto = new PassageDto();
         dto.setId(this.getId());

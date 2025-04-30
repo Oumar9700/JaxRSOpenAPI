@@ -191,8 +191,8 @@ public class Concert implements Serializable {
         dto.setValidatedConcert(this.isValidatedConcert());
         dto.setOrganizerId(this.getOrganizer().getId());
 
-        //dto.setPassagesIds(this.passages.stream().map(Passage::getId).collect(Collectors.toList()));
-        dto.setPrices(this.prices.stream().map(Price::toDto).collect(Collectors.toList()));
+        dto.setPassages(this.getPassages().stream().map(Passage::toDto).collect(Collectors.toList()));
+        dto.setPrices(this.getPrices().stream().map(Price::toDto).collect(Collectors.toList()));
         //dto.setPlacesIds(this.places.stream().map(Place::getId).collect(Collectors.toList()));
 
         return dto;

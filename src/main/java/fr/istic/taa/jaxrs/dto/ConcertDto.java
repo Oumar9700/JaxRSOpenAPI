@@ -28,8 +28,10 @@ public class ConcertDto implements Serializable {
 
     private Long organizerId;
 
-    private List<PriceDto> prices = new ArrayList<>(); // **changer ici**
+    private List<PriceDto> prices = new ArrayList<>();
+    private List<PassageArtistDto> passages = new ArrayList<>();// **changer ici**
 
+    private List<Passage> passagesList = new ArrayList<>();
     public ConcertDto() {
         super();
     }
@@ -151,6 +153,14 @@ public class ConcertDto implements Serializable {
 
     public void setPrices(List<PriceDto> prices) {
         this.prices = prices;
+    }
+
+    public List<PassageArtistDto> getPassages() {
+        return passages;
+    }
+
+    public void setPassages(List<PassageArtistDto> passages) {
+        this.passages = passages;
     }
 
 

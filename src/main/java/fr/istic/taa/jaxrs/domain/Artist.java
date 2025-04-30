@@ -9,7 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-public class Artist extends User implements Serializable {
+public class Artist implements Serializable {
+
+    private Long id;
+
+    protected String firstname;
+    protected String lastname;
 
     private List<Passage> passages = new ArrayList<Passage>();
 
@@ -17,12 +22,35 @@ public class Artist extends User implements Serializable {
         super();
     }
 
-    public Artist(String firstname, String lastname, String email, Gender gender, String phone) {
+    public Artist(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.email = email;
-        this.gender = gender;
-        this.phone = phone;
+    }
+
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -40,9 +68,7 @@ public class Artist extends User implements Serializable {
         dto.setId(this.getId());
         dto.setFirstname(this.getFirstname());
         dto.setLastname(this.getLastname());
-        dto.setEmail(this.getEmail());
-        dto.setGender(this.getGender());
-        dto.setPhone(this.getPhone());
+
         dto.setPassagesIds(this.passages.stream().map(Passage::getId).collect(Collectors.toList()));
         return dto;
     }

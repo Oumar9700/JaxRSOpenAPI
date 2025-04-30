@@ -1,16 +1,19 @@
 package fr.istic.taa.jaxrs.rest;
 
-import fr.istic.taa.jaxrs.dao.generic.ClientDao;
-import fr.istic.taa.jaxrs.dao.generic.PlaceDao;
-import fr.istic.taa.jaxrs.dao.generic.PriceDao;
-import fr.istic.taa.jaxrs.dao.generic.TicketDao;
+import fr.istic.taa.jaxrs.dao.generic.*;
+import fr.istic.taa.jaxrs.domain.Client;
+import fr.istic.taa.jaxrs.domain.Gender;
 import fr.istic.taa.jaxrs.domain.Ticket;
+import fr.istic.taa.jaxrs.domain.User;
+import fr.istic.taa.jaxrs.dto.TicketClientDto;
 import fr.istic.taa.jaxrs.dto.TicketDto;
 import fr.istic.taa.jaxrs.dto.TicketDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,15 +44,31 @@ public class TicketResource {
   @POST
   @Consumes("application/json")
   public Response addTicket(
-      @Parameter(description = "TicketDto object that needs to be added to the store", required = true) TicketDto ticketDto) {
-
-
+      @Parameter(description = "TicketDto object that needs to be added to the store", required = true) TicketClientDto ticketDto) {
 
     Ticket ticket = new Ticket();
-    ticket.setPlace(placeDao.findOne(ticketDto.getPlaceId()));
+
+    UserDao userDao = new UserDao();
+    User user = userDao.findByEmail(ticketDto.getClientEmail());
+
+    if (user == null ) {
+
+      ClientDao clientDao = new ClientDao();
+      Client client = new Client();
+      client.setEmail(ticketDto.getClientEmail());
+      client.setGender(Gender.UNKNOWN);
+      client.setPhone("");
+      client.setFirstname(ticketDto.getClientFirstname());
+      client.setLastname(ticketDto.getClientLastname());
+      clientDao.save(client);
+
+      ticket.setClient(client);
+    }else{
+      ticket.setClient((Client) user);
+    }
+
+
     ticket.setPrice(priceDao.findOne(ticketDto.getPriceId()));
-    ticket.setClient(clientDao.findOne(ticketDto.getClientId()));
-    ticket.setStatus(ticketDto.isStatus());
     ticketDao.save(ticket);
 
     return Response.status(Response.Status.CREATED).entity("Ticket created successfully").build();

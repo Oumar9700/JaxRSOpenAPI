@@ -14,8 +14,7 @@ public class Price implements Serializable {
     private Long id;
 
     private double price;
-    @Enumerated(EnumType.STRING)
-    private PriceType type; //VIP, PREMIUM, NORMAL
+    private String type; //VIP, PREMIUM, NORMAL
     private String description;
 
     private Concert concert;
@@ -25,7 +24,7 @@ public class Price implements Serializable {
         super();
     }
 
-    public Price(double price, PriceType type, String description, Concert concert) {
+    public Price(double price, String type, String description, Concert concert) {
         this.price = price;
         this.type = type;
         this.description = description;
@@ -50,11 +49,11 @@ public class Price implements Serializable {
         this.price = price;
     }
 
-    public PriceType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(PriceType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

@@ -41,9 +41,7 @@ public class ArtistResource {
       Artist artist = new Artist();
       artist.setFirstname(artistDto.getFirstname());
       artist.setLastname(artistDto.getLastname());
-      artist.setEmail(artistDto.getEmail());
-      artist.setPhone(artistDto.getPhone());
-      artist.setGender(artistDto.getGender());
+
       artistDao.save(artist);
     }
 
@@ -62,9 +60,7 @@ public class ArtistResource {
 
     artist.setFirstname(artistDto.getFirstname());
     artist.setLastname(artistDto.getLastname());
-    artist.setEmail(artistDto.getEmail());
-    artist.setPhone(artistDto.getPhone());
-    artist.setGender(artistDto.getGender());
+
     artistDao.update(artist);
 
     return Response.ok("Artist updated successfully").build();

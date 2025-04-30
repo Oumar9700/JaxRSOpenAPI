@@ -1,22 +1,19 @@
 package fr.istic.taa.jaxrs.rest;
 
-import fr.istic.taa.jaxrs.dao.generic.ConcertDao;
-import fr.istic.taa.jaxrs.dao.generic.OrganizerDao;
-import fr.istic.taa.jaxrs.dao.generic.PlaceDao;
-import fr.istic.taa.jaxrs.dao.generic.PriceDao;
+import fr.istic.taa.jaxrs.dao.generic.*;
 import fr.istic.taa.jaxrs.dao.generic.configs.AbstractJpaDao;
 import fr.istic.taa.jaxrs.domain.*;
 import fr.istic.taa.jaxrs.domain.Concert;
 import fr.istic.taa.jaxrs.dto.ConcertDto;
 import fr.istic.taa.jaxrs.dto.ConcertDto;
+import fr.istic.taa.jaxrs.dto.PassageArtistDto;
 import fr.istic.taa.jaxrs.dto.PriceDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Path("concert")
@@ -72,7 +69,10 @@ public class ConcertResource {
     // 3. Sauvegarde initiale du concert
     concertDao.save(concert); // Important : il faut un ID pour le concert avant de créer prices/places
 
+    System.out.println("id de   concert :");
+    System.out.println(concert.getId());
     PriceDao priceDao = new PriceDao();
+
     // 4. Création des prices
     if (concertDto.getPrices() != null) {
       for (PriceDto priceDto : concertDto.getPrices()) {
@@ -82,6 +82,26 @@ public class ConcertResource {
         price.setDescription(priceDto.getDescription());
         price.setConcert(concert);
         priceDao.save(price);
+      }
+    }
+
+    ArtistDao artistDao = new ArtistDao();
+    PassageDao passageDao  = new PassageDao();
+    // 4. Création des prices
+    if (concertDto.getPassages() != null) {
+      for (PassageArtistDto passageArtistDto : concertDto.getPassages()) {
+
+        Artist artist = new Artist();
+        artist.setFirstname(passageArtistDto.getArtistFirstname());
+        artist.setLastname(passageArtistDto.getArtistLastname());
+        artistDao.save(artist);
+
+        Passage passage = new Passage();
+        passage.setArtist(artist);
+        passage.setConcert(concert);
+        passage.setBeginHour(passageArtistDto.getBeginHour());
+        passage.setEndHour(passageArtistDto.getEndHour());
+        passageDao.save(passage);
       }
     }
 
@@ -97,8 +117,16 @@ public class ConcertResource {
       }
     }
 
+    // 5. Création des passages
+
+
+
+    Map<String, Object> responseBody = new HashMap<>();
+    responseBody.put("message", "Concert created successfully with prices and places");
+
     return Response.status(Response.Status.CREATED)
-            .entity("Concert created successfully with prices and places")
+            .entity(responseBody)
+            .type(MediaType.APPLICATION_JSON)
             .build();
   }
 

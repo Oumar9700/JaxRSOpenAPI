@@ -18,12 +18,9 @@ public class ArtistDto extends User implements Serializable {
         super();
     }
 
-    public ArtistDto(String firstname, String lastname, String email, String sexe, String phone) {
+    public ArtistDto(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.email = email;
-        this.gender = gender;
-        this.phone = phone;
     }
 
     public List<Long> getPassagesIds() {
